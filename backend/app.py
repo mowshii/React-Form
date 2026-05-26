@@ -9,7 +9,7 @@ conn = psycopg2.connect(
     host="localhost",
     database="postgres",
     user="postgres",
-    password="Mowshi",
+    password="BIGSTUDIO17",
     port="5432"
 )
 
@@ -49,7 +49,7 @@ def add_student():
     conn.commit()
 
     return jsonify({
-        "message": "Student Added Successfully"
+        "message": "Employee Added Successfully"
     })
 
 if __name__ == '__main__':

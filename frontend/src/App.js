@@ -7,8 +7,29 @@ function App() {
 
   const [students, setStudents] = useState([]);
 
+  const [editIndex, setEditIndex] = useState(null);
+
+  const [editStudent, setEditStudent] = useState(null);
+
   const addStudent = (studentData) => {
-    setStudents([...students, studentData]);
+
+    if (editIndex !== null) {
+
+      const updatedStudents = [...students];
+
+      updatedStudents[editIndex] = studentData;
+
+      setStudents(updatedStudents);
+
+      setEditIndex(null);
+
+      setEditStudent(null);
+
+    } else {
+
+      setStudents([...students, studentData]);
+
+    }
   };
 
   return (
@@ -18,12 +39,24 @@ function App() {
 
         <Route
           path="/"
-          element={<FormPage addStudent={addStudent} />}
+          element={
+            <FormPage
+              addStudent={addStudent}
+              editStudent={editStudent}
+            />
+          }
         />
 
         <Route
           path="/data"
-          element={<DataPage students={students} />}
+          element={
+            <DataPage
+              students={students}
+              setStudents={setStudents}
+              setEditIndex={setEditIndex}
+              setEditStudent={setEditStudent}
+            />
+          }
         />
 
       </Routes>

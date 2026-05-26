@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-function FormPage({ addStudent }) {
+function FormPage({ addStudent, editStudent }) {
 
   const navigate = useNavigate();
 
-  const [formData, setFormData] = useState({
+ const [formData, setFormData] = useState(
+  editStudent || {
     firstName: '',
     lastName: '',
     age: '',
@@ -17,9 +18,9 @@ function FormPage({ addStudent }) {
     state: '',
     country: '',
     department: '',
-    college: ''
-  });
-
+    office: ''
+  }
+);
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -92,7 +93,7 @@ function FormPage({ addStudent }) {
           </div>
 
           <button type="submit" style={styles.button}>
-            Submit
+            {editStudent ? "Update Student" : "Submit"}
           </button>
 
         </form>

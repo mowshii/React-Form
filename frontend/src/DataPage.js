@@ -1,7 +1,32 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
-function DataPage({ students }) {
+function DataPage({
+  students,
+  setStudents,
+  setEditIndex,
+  setEditStudent
+}) {
+
+  const navigate = useNavigate();
+
+  const deleteStudent = (indexToDelete) => {
+
+    const updatedStudents = students.filter(
+      (_, index) => index !== indexToDelete
+    );
+
+    setStudents(updatedStudents);
+  };
+
+  const editStudentRecord = (student, index) => {
+
+    setEditIndex(index);
+
+    setEditStudent(student);
+
+    navigate('/');
+  };
 
   return (
     <div style={styles.container}>
@@ -29,6 +54,7 @@ function DataPage({ students }) {
               <th>Email</th>
               <th>Department</th>
               <th>Office</th>
+              <th>Action</th>
             </tr>
 
           </thead>
@@ -53,6 +79,24 @@ function DataPage({ students }) {
                   <td>{student.department}</td>
 
                   <td>{student.office}</td>
+
+                  <td>
+
+                    <button
+                      style={styles.editButton}
+                      onClick={() => editStudentRecord(student, index)}
+                    >
+                      Edit
+                    </button>
+
+                    <button
+                      style={styles.deleteButton}
+                      onClick={() => deleteStudent(index)}
+                    >
+                      Delete
+                    </button>
+
+                  </td>
 
                 </tr>
               ))
@@ -95,6 +139,25 @@ const styles = {
     border: 'none',
     borderRadius: '8px',
     marginBottom: '20px',
+    cursor: 'pointer'
+  },
+
+  editButton: {
+    padding: '8px 12px',
+    background: 'green',
+    color: 'white',
+    border: 'none',
+    borderRadius: '6px',
+    cursor: 'pointer',
+    marginRight: '10px'
+  },
+
+  deleteButton: {
+    padding: '8px 12px',
+    background: 'red',
+    color: 'white',
+    border: 'none',
+    borderRadius: '6px',
     cursor: 'pointer'
   },
 
